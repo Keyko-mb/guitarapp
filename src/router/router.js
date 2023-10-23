@@ -2,6 +2,8 @@ import MainPage from "@/pages/MainPage.vue";
 import SongPage from "@/pages/SongsPage.vue";
 import {createRouter, createWebHistory} from "vue-router";
 import ChordsPage from "@/pages/ChordsPage.vue";
+import AuthorsPage from "@/pages/AuthorsPage.vue";
+import AccountPage from "@/pages/AccountPage.vue";
 
 const routes = [
     {
@@ -15,6 +17,14 @@ const routes = [
     {
         path: '/chords',
         component: ChordsPage
+    },
+    {
+        path: '/authors',
+        component: AuthorsPage
+    },
+    {
+        path: '/account',
+        component: AccountPage
     },
 ]
 

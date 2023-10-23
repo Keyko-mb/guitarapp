@@ -1,7 +1,9 @@
 <template>
   <div class="app">
-    <my-navbar></my-navbar>
-    <router-view></router-view>
+    <div class="app_content">
+      <my-navbar></my-navbar>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -19,11 +21,19 @@ export default {
 <style lang="scss">
 * {
   padding: 0;
-  background: #F9F9F9;
+  font-family: 'Raleway', sans-serif;
+  background-color: #F9F9F9;
 }
 
 .app{
-  margin-right: 117px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1440px;
+  height: 1024px;
+}
+
+.app_content {
   margin-left: 117px;
+  margin-right: 117px;
 }
 </style>
