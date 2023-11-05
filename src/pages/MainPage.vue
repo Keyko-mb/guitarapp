@@ -24,22 +24,26 @@ export default {
 
 .main {
   text-align: center;
+  margin-top: 150px;
 }
 
 h1 {
   font-size: 48px;
   font-weight: 500;
+  margin: 0;
 }
 
-h2 {
+h4 {
   font-size: 24px;
   font-weight: 300;
+  margin: 14px 0 0 0;
 }
 
 h3 {
   color: #885A35;
   font-size: 32px;
   font-weight: 400;
+  margin: 64px 0 20px 0;
 }
 
 .main_search button {
@@ -48,6 +52,7 @@ h3 {
   border-radius: 0 10px 10px 0;
   border: 1px solid rgba(136, 90, 53, 0.40);
   background: rgba(136, 90, 53, 0.15);
+  font-size: 24px;
 }
 
 .main_search input {
@@ -57,6 +62,7 @@ h3 {
   border: 1px solid rgba(0, 0, 0, 0.20);
   padding-left: 15px;
   background-color: white;
-  margin-right: 11px;
+  margin-right: 9px;
+  font-size: 24px;
 }
 </style>

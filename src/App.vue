@@ -9,7 +9,6 @@
 
 <script>
 import MyNavbar from "@/components/UI/MyNavbar.vue";
-
 export default {
   components: {
     MyNavbar
@@ -23,6 +22,7 @@ export default {
   padding: 0;
   font-family: 'Raleway', sans-serif;
   background-color: #F9F9F9;
+  margin: 0;
 }
 
 .app{

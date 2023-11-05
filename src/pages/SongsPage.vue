@@ -1,17 +1,37 @@
 <template>
   <div>
-    <h1>
-      Страница со списком песен
-    </h1>
+    <h1>Песни</h1>
+    <songs-list :songs="songs"></songs-list>
   </div>
 </template>
 
 <script>
-export default {
 
+import axios from "axios";
+import SongsList from "@/components/SongsList.vue";
+
+export default {
+  components: {SongsList},
+  data() {
+    return {
+      songs: []
+    }
+  },
+
+  mounted() {
+    axios
+        .get('http://localhost:8084/api/songs')
+        .then((response) => {
+          this.songs = response.data
+          console.log(response)
+        })
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
+h1 {
+  font-size: 48px;
+  font-weight: 500;
+}
 </style>
