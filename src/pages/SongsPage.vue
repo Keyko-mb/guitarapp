@@ -23,6 +23,7 @@ export default {
         .get('http://localhost:8084/api/songs')
         .then((response) => {
           this.songs = response.data
+          this.songs.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
           console.log(response)
         })
   }

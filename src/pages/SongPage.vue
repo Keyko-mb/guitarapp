@@ -2,9 +2,9 @@
   <div class="song">
     <div class="names">
       <h1>{{song.name}}</h1>
-      <h4>{{song.author}}</h4>
-      <button>Шрифт</button>
-      <button>Прокрутка</button>
+      <h4>{{song.author.name}}</h4>
+      <my-button>Шрифт</my-button>
+      <my-button>Прокрутка</my-button>
     </div>
     <div class="chords">
       <p>Аппликатуры аккордов</p>
@@ -21,17 +21,33 @@
 
 <script>
 import axios from "axios";
+import MyButton from "@/components/UI/MyButton.vue";
 
 export default {
+  components: {MyButton},
   data() {
     return {
-      song: ""
+      song: {
+        name: '',
+        author: {
+          id: '',
+          name: ''
+        },
+        text: ''
+      },
+    }
+  },
+
+  props: {
+    id: {
+      type: String,
+      required : true
     }
   },
 
   mounted() {
     axios
-        .get('http://localhost:8084/api/songId/1')
+        .get("http://localhost:8084/api/songId/" + this.id)
         .then((response) => {
           this.song = response.data
           console.log(response)

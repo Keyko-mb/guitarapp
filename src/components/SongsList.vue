@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <p v-for="song in songs" :key="song.id">
+  <div class="list">
+    <router-link class="link" :to="'/song/' + song.id" v-for="song in songs" :key="song.id">
       {{song.name}} - {{song.author.name}}
-    </p>
+    </router-link>
   </div>
 </template>
 
@@ -18,9 +18,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
+.list {
+  display: flex;
+  flex-direction: column;
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 3px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.link:hover {
+  color: #885A35;
 }
 </style>

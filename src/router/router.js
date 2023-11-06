@@ -29,8 +29,9 @@ const routes = [
         component: AccountPage
     },
     {
-        path: '/song/1',
-        component: SongPage
+        path: "/song/:id",
+        component: SongPage,
+        props: (router) => ({id: router.params.id})
     },
     {
         path: '/admin',
