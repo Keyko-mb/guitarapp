@@ -1,20 +1,25 @@
 <template>
   <div class="song">
-    <div class="names">
-      <h1>{{song.name}}</h1>
-      <h4>{{song.author.name}}</h4>
-      <my-button>Шрифт</my-button>
-      <my-button>Прокрутка</my-button>
-    </div>
-    <div class="chords">
-      <p>Аппликатуры аккордов</p>
-      <div class="chords__chord" v-for="chord in song.accord" :key="chord.id">
-        <p>{{chord.name}}</p>
-        <img :src="'data:image/png;base64,' + chord.image">
+    <div class="first">
+      <div class="names">
+        <h1>{{song.name}}</h1>
+        <h4>{{song.author.name}}</h4>
+      </div>
+      <div class="buttons">
+        <my-button>Шрифт</my-button>
+        <my-button>Прокрутка</my-button>
+      </div>
+      <div class="text">
+        <p>{{song.text}}</p>
       </div>
     </div>
-    <div class="text">
-      <p>{{song.text}}</p>
+    <div class="second">
+      <div class="chords">
+        <p>Аппликатуры аккордов</p>
+        <my-chords
+            :chords="chords"
+        ></my-chords>
+      </div>
     </div>
   </div>
 </template>
@@ -22,9 +27,10 @@
 <script>
 import axios from "axios";
 import MyButton from "@/components/UI/MyButton.vue";
+import MyChords from "@/components/UI/MyChords.vue";
 
 export default {
-  components: {MyButton},
+  components: {MyChords, MyButton},
   data() {
     return {
       song: {
@@ -35,6 +41,7 @@ export default {
         },
         text: ''
       },
+      chords: []
     }
   },
 
@@ -52,6 +59,12 @@ export default {
           this.song = response.data
           console.log(response)
         })
+    axios
+        .get("http://localhost:8084/api/song/" + this.id + "/accords")
+        .then((response) => {
+          this.chords = response.data
+          console.log(response)
+        })
   }
 }
 </script>
@@ -61,28 +74,25 @@ export default {
 .song {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 12% 88%;
 }
-
-.text p {
+.first {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+.second {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  display: flex;
+  justify-content: center;
+  margin-top: 111px;
+}
+.text {
   font-size: 20px;
   font-weight: 400;
   line-height: 155.023%;
   letter-spacing: 8.3px;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 2;
-  grid-row-end: 3;
   margin-top: 20px;
 }
-
-.names {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-}
-
 .names h1 {
   font-size: 48px;
   font-weight: 500;
@@ -95,20 +105,18 @@ export default {
   font-weight: 400;
   margin-bottom: 20px;
 }
-
-.names button {
+.buttons {
   font-size: 20px;
   font-weight: 400;
+  display: flex;
 }
-
 .chords {
-  justify-self: center;
-  margin-top: 111px;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 3;
+  width: 550px;
+}
+.chords p {
   font-size: 20px;
   font-weight: 400;
+  justify-self: center;
+  margin-bottom: 10px;
 }
 </style>

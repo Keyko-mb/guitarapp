@@ -2,9 +2,14 @@
   <div>
     <form @submit.prevent>
       <h4>Добавление песни</h4>
+      <p>Название</p>
       <input v-model="song.name" class="input" type="text" placeholder="name">
-      <input v-model="song.author_id" class="input" type="text" placeholder="author">
-      <input v-model="song.text" class="input" type="text" placeholder="text">
+      <p>ID автора</p>
+      <input v-model="song.author.id" class="input" type="text" placeholder="author_id">
+      <p>Автор</p>
+      <input v-model="song.author.name" class="input" type="text" placeholder="author">
+      <p>Текст</p>
+      <textarea v-model="song.text" class="input" id="text" placeholder="text"></textarea>
       <my-button @click="addSong">Добавить</my-button>
     </form>
   </div>
@@ -19,7 +24,10 @@ export default {
     return {
       song: {
         name :"",
-        author_id: "",
+        author: {
+          id: "",
+          name: ""
+        },
         text: ""
       }
     }
@@ -27,7 +35,7 @@ export default {
   methods: {
     addSong() {
       this.$emit('add', this.song)
-    }
+    },
   }
 }
 </script>
@@ -36,21 +44,29 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  width: 20%;
 }
-
 h4 {
   margin-bottom: 5px;
+  font-size: 30px;
+  font-weight: 400;
 }
-
-input {
+p {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+.input {
   border-radius: 10px 10px 10px 10px;
   border: 1px solid rgba(0, 0, 0, 0.20);
   background: #FFF;
-  width: 300px;
+  width: 500px;
   height: 40px;
   padding: 5px;
   margin-bottom: 5px;
+}
+.input#text {
+  height: 250px;
+  margin-bottom: 10px;
 }
 
 </style>

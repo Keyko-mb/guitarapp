@@ -37,4 +37,9 @@ p {
   font-weight: 400;
   letter-spacing: 3px;
 }
+h1 {
+  font-size: 48px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
 </style>

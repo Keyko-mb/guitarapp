@@ -3,17 +3,16 @@
     <h1>
       Аккорды
     </h1>
-    <div v-for="chord in chords" :key="chord.id">
-      <p>{{chord.name}}</p>
-      <img :src="'data:image/png;base64,' + chord.image">
-    </div>
+    <my-chords class="chords" :chords="chords"></my-chords>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import MyChords from "@/components/UI/MyChords.vue";
 
 export default {
+  components: {MyChords},
   data() {
     return {
       chords: []
@@ -31,9 +30,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: 3px;
+h1 {
+  font-size: 48px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.chords {
+  display: flex;
+  justify-content: center;
 }
 </style>

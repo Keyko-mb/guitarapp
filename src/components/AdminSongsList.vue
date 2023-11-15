@@ -1,18 +1,15 @@
 <template>
   <div class="list" v-for="song in songs" :key="song.id">
-    <admin-song-item class="item"
+    <admin-song-item @remove="removeSong" @editClick="editClick"
     :song="song"
     ></admin-song-item>
-    <my-button @remove="$emit('remove', this.song)">Удалить</my-button>
-    <my-button @add="$emit('edit', this.song)">Редактировать</my-button>
   </div>
 </template>
 
 <script>
 import AdminSongItem from "@/components/AdminSongItem.vue";
-import MyButton from "@/components/UI/MyButton.vue";
 export default {
-  components: {MyButton, AdminSongItem},
+  components: {AdminSongItem},
   props: {
     songs: {
       type: Array,
@@ -20,11 +17,11 @@ export default {
     }
   },
   methods: {
-    removeSong() {
-      this.$emit('remove', this.song)
+    removeSong(song) {
+      this.$emit('remove', song)
     },
-    editSong() {
-      this.$emit('edit', this.song)
+    editClick() {
+      this.$emit('editClick')
     }
   }
 }
@@ -33,12 +30,10 @@ export default {
 <style lang="scss" scoped>
 .list {
   display: flex;
-  justify-content: space-between;
-  width: 500px;
-  margin-top: 5px;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 3px;
 }
 
-.item {
-  flex-basis: 60%;
-}
 </style>
