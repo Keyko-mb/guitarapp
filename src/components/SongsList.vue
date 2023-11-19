@@ -23,7 +23,7 @@ export default {
   flex-direction: column;
   font-size: 20px;
   font-weight: 400;
-  letter-spacing: 3px;
+  letter-spacing: 2.3px;
 }
 
 .link {

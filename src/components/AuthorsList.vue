@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <p v-for="author in authors" :key="author.id">{{author.name}}</p>
+  <div class="list">
+    <router-link class="link" :to="'/author/' + author.id" v-for="author in authors" :key="author.id">
+      {{author.name}}
+    </router-link>
   </div>
 </template>
 
@@ -17,9 +19,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
+.list {
+  display: flex;
+  flex-direction: column;
   font-size: 20px;
   font-weight: 400;
-  letter-spacing: 3px;
+  letter-spacing: 2.3px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.link:hover {
+  color: #885A35;
 }
 </style>

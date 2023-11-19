@@ -10,7 +10,7 @@
         <my-button>Прокрутка</my-button>
       </div>
       <div class="text">
-        <p>{{song.text}}</p>
+        <p v-html="song.text"></p>
       </div>
     </div>
     <div class="second">
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       song: {
+        id: '',
         name: '',
         author: {
           id: '',
@@ -89,9 +90,9 @@ export default {
 .text {
   font-size: 20px;
   font-weight: 400;
-  line-height: 155.023%;
-  letter-spacing: 8.3px;
+  letter-spacing: 2.3px;
   margin-top: 20px;
+  white-space: pre;
 }
 .names h1 {
   font-size: 48px;

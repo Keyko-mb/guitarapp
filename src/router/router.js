@@ -6,6 +6,7 @@ import AuthorsPage from "@/pages/AuthorsPage.vue";
 import AccountPage from "@/pages/AccountPage.vue";
 import SongPage from "@/pages/SongPage.vue";
 import AdminPage from "@/pages/AdminPage.vue";
+import AuthorPage from "@/pages/AuthorPage.vue";
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
     {
         path: "/song/:id",
         component: SongPage,
+        props: (router) => ({id: router.params.id})
+    },
+    {
+        path: "/author/:id",
+        component: AuthorPage,
         props: (router) => ({id: router.params.id})
     },
     {

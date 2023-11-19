@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1>
-      Исполнители
-    </h1>
+    <h1>Исполнители</h1>
     <authors-list :authors="authors"></authors-list>
   </div>
 </template>
@@ -32,11 +30,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: 3px;
-}
 h1 {
   font-size: 48px;
   font-weight: 500;
