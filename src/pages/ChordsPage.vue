@@ -34,6 +34,7 @@ h1 {
   font-size: 48px;
   font-weight: 500;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 .chords {
   display: flex;

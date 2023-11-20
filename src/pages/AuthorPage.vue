@@ -1,7 +1,9 @@
 <template>
   <div class="author">
-    <h1 class="names">{{author.name}}</h1>
-    <h4 class="names">Список песен</h4>
+    <div class="names">
+      <h1>{{author.name}}</h1>
+      <h4>Список песен</h4>
+    </div>
     <div class="songs">
       <songs-list :songs="songs"></songs-list>
     </div>
@@ -51,13 +53,13 @@ export default {
 .names h1 {
   font-size: 48px;
   font-weight: 500;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 .names h4 {
   color: #885A35;
   font-size: 20px;
   font-weight: 400;
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
 </style>

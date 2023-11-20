@@ -6,11 +6,19 @@
         <h4>{{song.author.name}}</h4>
       </div>
       <div class="buttons">
-        <my-button>Шрифт</my-button>
-        <my-button>Прокрутка</my-button>
+        <div class="buttons__size">
+          <my-button @click="fontSize >= 2? fontSize = 2: fontSize += 0.25">+</my-button>
+          <p>Размер текста</p>
+          <my-button @click="fontSize <= 0.75? fontSize = 0.75: fontSize -= 0.25">-</my-button>
+        </div>
+        <div class="buttons__scroll">
+          <my-button>+</my-button>
+          <p>Прокрутка</p>
+          <my-button>-</my-button>
+        </div>
       </div>
       <div class="text">
-        <p v-html="song.text"></p>
+        <p v-html="song.text" :style="{fontSize: fontSize + 'rem'}"></p>
       </div>
     </div>
     <div class="second">
@@ -42,7 +50,8 @@ export default {
         },
         text: ''
       },
-      chords: []
+      chords: [],
+      fontSize: 1.25
     }
   },
 
@@ -75,6 +84,7 @@ export default {
 .song {
   display: grid;
   grid-template-columns: 50% 50%;
+  padding-bottom: 60px;
 }
 .first {
   grid-column-start: 1;
@@ -97,7 +107,7 @@ export default {
 .names h1 {
   font-size: 48px;
   font-weight: 500;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 .names h4 {
@@ -110,6 +120,15 @@ export default {
   font-size: 20px;
   font-weight: 400;
   display: flex;
+  gap: 30px;
+}
+.buttons__size, .buttons__scroll {
+  display: flex;
+  gap: 5px;
+}
+.buttons__size p, .buttons__scroll p {
+  height:36px;
+  line-height:36px;
 }
 .chords {
   width: 550px;

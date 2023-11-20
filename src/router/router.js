@@ -7,6 +7,7 @@ import AccountPage from "@/pages/AccountPage.vue";
 import SongPage from "@/pages/SongPage.vue";
 import AdminPage from "@/pages/AdminPage.vue";
 import AuthorPage from "@/pages/AuthorPage.vue";
+import LoginPage from "@/pages/LoginPage.vue";
 
 const routes = [
     {
@@ -42,6 +43,10 @@ const routes = [
     {
         path: '/admin',
         component: AdminPage
+    },
+    {
+        path: '/login',
+        component: LoginPage
     },
 ]
 
