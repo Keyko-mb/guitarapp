@@ -8,6 +8,7 @@ import SongPage from "@/pages/SongPage.vue";
 import AdminPage from "@/pages/AdminPage.vue";
 import AuthorPage from "@/pages/AuthorPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
+import SearchPage from "@/pages/SearchPage.vue";
 
 const routes = [
     {
@@ -47,6 +48,11 @@ const routes = [
     {
         path: '/login',
         component: LoginPage
+    },
+    {
+        path: "/search/:searchedLine",
+        component: SearchPage,
+        props: (router) => ({searchedLine: router.params.searchedLine})
     },
 ]
 

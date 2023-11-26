@@ -4,18 +4,21 @@
     <h4>Сборник аккордов песен, аппликатур и тд.</h4>
     <h3>Поиск среди песен</h3>
     <div class="main_search">
-      <input v-model="search" placeholder="Поиск"/>
-      <button>Найти</button>
+      <input v-model="searchedLine" placeholder="Поиск"/>
+      <button @click="$router.push('/search/' + searchedLine)">Найти</button>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      search: ''
+      searchedLine: ""
     }
+  },
+  methods: {
   }
 }
 </script>

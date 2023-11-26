@@ -6,7 +6,7 @@
       <button @click="$router.push('/authors')">Исполнители</button>
       <button @click="$router.push('/chords')">Аккорды</button>
     </div>
-    <input v-model="search" placeholder="Поиск"/>
+    <input v-model="searchedLine" @keyup.enter="$router.push('/search/' + searchedLine)" placeholder="Поиск"/>
     <button class="navbar_account" @click="$router.push('/account')">Личный кабинет</button>
   </div>
 </template>
@@ -15,7 +15,7 @@
 export default {
   data() {
     return {
-      search: ''
+      searchedLine: ""
     }
   }
 }
