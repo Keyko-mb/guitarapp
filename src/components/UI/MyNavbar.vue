@@ -62,10 +62,11 @@ input {
   background-color: white;
   margin-left: 26px;
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 ::placeholder {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 </style>

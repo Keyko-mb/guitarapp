@@ -7,14 +7,14 @@
       </div>
       <div class="buttons">
         <div class="buttons__size">
-          <my-button @click="fontSize >= 2? fontSize = 2: fontSize += 0.25">+</my-button>
-          <p>Размер текста</p>
           <my-button @click="fontSize <= 0.75? fontSize = 0.75: fontSize -= 0.25">-</my-button>
+          <p>Размер текста</p>
+          <my-button @click="fontSize >= 2? fontSize = 2: fontSize += 0.25">+</my-button>
         </div>
         <div class="buttons__scroll">
-          <my-button>+</my-button>
+          <my-button @click="this.scrollSpeed+100>=301 ? scrollStop() : scrollDown(100)">-</my-button>
           <p>Прокрутка</p>
-          <my-button>-</my-button>
+          <my-button @click="scrollDown(-100)">+</my-button>
         </div>
       </div>
       <div class="text">
@@ -23,7 +23,6 @@
     </div>
     <div class="second">
       <div class="chords">
-        <p>Аппликатуры аккордов</p>
         <my-chords
             :chords="chords"
         ></my-chords>
@@ -35,7 +34,7 @@
 <script>
 import axios from "axios";
 import MyButton from "@/components/UI/MyButton.vue";
-import MyChords from "@/components/UI/MyChords.vue";
+import MyChords from "@/components/ChordsList.vue";
 
 export default {
   components: {MyChords, MyButton},
@@ -51,7 +50,9 @@ export default {
         text: ''
       },
       chords: [],
-      fontSize: 1.25
+      fontSize: 1.25,
+      interval: null,
+      scrollSpeed: 301,
     }
   },
 
@@ -75,6 +76,24 @@ export default {
           this.chords = response.data
           console.log(response)
         })
+  },
+
+  methods: {
+    scrollDown(delta) {
+      this.scrollSpeed += delta
+      this.scrollSpeed = Math.max(this.scrollSpeed, 1)
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+      this.interval = setInterval(() => {
+        window.scrollBy( { top: 1, left: 0, behavior: 'smooth' } );
+      }, this.scrollSpeed);
+      console.log(this.scrollSpeed)
+    },
+    scrollStop() {
+      this.scrollSpeed=301
+      clearInterval(this.interval);
+    }
   }
 }
 </script>
@@ -132,11 +151,9 @@ export default {
 }
 .chords {
   width: 550px;
+  top: 3em;
+  position: sticky;
+  margin-top: 30px;
 }
-.chords p {
-  font-size: 20px;
-  font-weight: 400;
-  justify-self: center;
-  margin-bottom: 10px;
-}
+
 </style>

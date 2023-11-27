@@ -4,7 +4,7 @@
     <h4>Сборник аккордов песен, аппликатур и тд.</h4>
     <h3>Поиск среди песен</h3>
     <div class="main_search">
-      <input v-model="searchedLine" placeholder="Поиск"/>
+      <input v-model="searchedLine" @keyup.enter="$router.push('/search/' + searchedLine)" placeholder="Поиск"/>
       <button @click="$router.push('/search/' + searchedLine)">Найти</button>
     </div>
   </div>

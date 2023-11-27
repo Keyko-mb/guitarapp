@@ -9,7 +9,7 @@
 
 <script>
 import axios from "axios";
-import MyChords from "@/components/UI/MyChords.vue";
+import MyChords from "@/components/ChordsList.vue";
 
 export default {
   components: {MyChords},
