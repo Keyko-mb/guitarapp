@@ -1,7 +1,7 @@
 <template>
   <div class="edit_form">
     <form @submit.prevent>
-      <h4>Редактирование автора</h4>
+      <h3>Редактирование автора</h3>
       <p>Имя</p>
       <input v-model="author.name" class="input" type="text" placeholder="name">
       <my-button @click="editAuthor">Изменить</my-button>
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     editAuthor() {
-      this.$emit('add', this.author)
+      this.$emit('edit', this.author)
     },
   }
 }
@@ -35,7 +35,7 @@ form {
   display: flex;
   flex-direction: column;
 }
-h4 {
+h3 {
   margin-bottom: 5px;
   font-size: 30px;
   font-weight: 400;

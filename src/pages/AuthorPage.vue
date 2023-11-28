@@ -58,7 +58,7 @@ export default {
 }
 .names h4 {
   color: #885A35;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 400;
   margin-top: 10px;
 }

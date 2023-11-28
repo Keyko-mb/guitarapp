@@ -3,16 +3,14 @@
     <p>
       {{author.name}}
     </p>
-    <my-button class="item__btn" @click="$emit('editClick')" >Редактировать</my-button>
-    <my-button class="item__btn" @click="$emit('remove', this.author)">Удалить</my-button>
+    <button class="item__btn" @click="$emit('editClick')" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
+    <button class="item__btn" @click="$emit('remove', this.author)"><img src="/remove.png" alt="icon" class="remove_icon"></button>
   </div>
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton.vue";
 
 export default {
-  components: {MyButton},
   props: {
     author: {
       id: "",
@@ -30,11 +28,16 @@ p {
 .item {
   display: flex;
   justify-content: space-between;
-  width: 60%;
+  width: 45%;
   margin-bottom: 10px;
   flex-grow: 3;
 }
 .item__btn {
   margin-left: 10px;
+  border: none;
+}
+.edit_icon, .remove_icon {
+  width: 30px;
+  height: 30px;
 }
 </style>

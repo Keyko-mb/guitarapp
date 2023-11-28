@@ -7,14 +7,14 @@
       </div>
       <div class="buttons">
         <div class="buttons__size">
-          <my-button @click="fontSize <= 0.75? fontSize = 0.75: fontSize -= 0.25">-</my-button>
+          <button @click="fontSize <= 0.75? fontSize = 0.75: fontSize -= 0.25"><img src="/minus.png" alt="icon" class="icon"></button>
           <p>Размер текста</p>
-          <my-button @click="fontSize >= 2? fontSize = 2: fontSize += 0.25">+</my-button>
+          <button @click="fontSize >= 2? fontSize = 2: fontSize += 0.25"><img src="/add.png" alt="icon" class="icon"></button>
         </div>
         <div class="buttons__scroll">
-          <my-button @click="this.scrollSpeed+100>=301 ? scrollStop() : scrollDown(100)">-</my-button>
+          <button @click="this.scrollSpeed+100>=301 ? scrollStop() : scrollDown(100)"><img src="/minus.png" alt="icon" class="icon"></button>
           <p>Прокрутка</p>
-          <my-button @click="scrollDown(-100)">+</my-button>
+          <button @click="scrollDown(-100)"><img src="/add.png" alt="icon" class="icon"></button>
         </div>
       </div>
       <div class="text">
@@ -33,11 +33,10 @@
 
 <script>
 import axios from "axios";
-import MyButton from "@/components/UI/MyButton.vue";
 import MyChords from "@/components/ChordsList.vue";
 
 export default {
-  components: {MyChords, MyButton},
+  components: {MyChords},
   data() {
     return {
       song: {
@@ -131,7 +130,7 @@ export default {
 }
 .names h4 {
   color: #885A35;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 400;
   margin-bottom: 20px;
 }
@@ -141,6 +140,9 @@ export default {
   display: flex;
   gap: 30px;
 }
+.buttons button {
+  border: none;
+}
 .buttons__size, .buttons__scroll {
   display: flex;
   gap: 5px;
@@ -149,11 +151,14 @@ export default {
   height:36px;
   line-height:36px;
 }
+.icon {
+  width: 30px;
+  height: 30px;
+}
 .chords {
   width: 550px;
   top: 3em;
   position: sticky;
   margin-top: 30px;
 }
-
 </style>

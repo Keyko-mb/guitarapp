@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent>
-      <h4>Добавление автора</h4>
+      <h3>Добавление автора</h3>
       <p>Имя</p>
       <input v-model="author.name" class="input" type="text" placeholder="name">
       <my-button @click="addAuthor">Добавить</my-button>
@@ -35,7 +35,7 @@ form {
   display: flex;
   flex-direction: column;
 }
-h4 {
+h3 {
   margin-bottom: 5px;
   font-size: 30px;
   font-weight: 400;

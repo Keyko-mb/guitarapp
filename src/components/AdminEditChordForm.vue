@@ -1,16 +1,10 @@
 <template>
   <div class="edit_form">
     <form @submit.prevent>
-      <h3>Редактирование песни</h3>
+      <h3>Редактирование аккорда</h3>
       <p>Название</p>
-      <input v-model="song.name" class="input" type="text" placeholder="name">
-      <p>ID автора</p>
-      <input v-model="song.author.id" class="input" type="text" placeholder="author_id">
-      <p>Автор</p>
-      <input v-model="song.author.name" class="input" type="text" placeholder="author">
-      <p>Текст</p>
-      <textarea v-model="song.text" class="input" id="text" placeholder="text"></textarea>
-      <my-button @click="editSong">Изменить</my-button>
+      <input v-model="chord.name" class="input" type="text" placeholder="name">
+      <my-button @click="editChord">Изменить</my-button>
     </form>
   </div>
 </template>
@@ -22,19 +16,16 @@ export default {
   components: {MyButton},
   data() {
     return {
-      song: {
-        name :"",
-        author: {
-          id: "",
-          name: ""
-        },
-        text: ""
+      chord: {
+        id: "",
+        name: "",
+        img: ""
       }
     }
   },
   methods: {
-    editSong() {
-      this.$emit('edit', this.song)
+    editChord() {
+      this.$emit('edit', this.chord)
     },
   }
 }

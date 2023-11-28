@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent>
-      <h4>Добавление песни</h4>
+      <h3>Добавление песни</h3>
       <p>Название</p>
       <input v-model="song.name" class="input" type="text" placeholder="name">
       <p>ID автора</p>
@@ -45,7 +45,7 @@ form {
   display: flex;
   flex-direction: column;
 }
-h4 {
+h3 {
   margin-bottom: 5px;
   font-size: 30px;
   font-weight: 400;
