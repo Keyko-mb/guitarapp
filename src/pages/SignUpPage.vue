@@ -1,11 +1,15 @@
 <template>
-  <div class="login">
+  <div class="signUp">
     <form @submit.prevent>
-      <p>Почта</p>
-      <input v-model="user.username" class="input" type="text" placeholder="email">
+      <p>Логин</p>
+      <input v-model="user.username" class="input" type="text" placeholder="username">
       <p>Пароль</p>
       <input v-model="user.password" class="input" type="password" placeholder="password">
-      <my-button @click="login">Войти</my-button>
+      <p>Почта</p>
+      <input v-model="user.email" class="input" type="email" placeholder="email">
+      <p>Роль (ROLE_USER)</p>
+      <input v-model="user.role" class="input" type="text" placeholder="role">
+      <my-button @click="signUp">Зарегистрироваться</my-button>
     </form>
   </div>
 </template>
@@ -14,7 +18,6 @@
 import MyButton from "@/components/UI/MyButton.vue";
 import axios from "axios";
 import router from "@/router/router";
-import store from "@/store";
 
 export default {
   components: {MyButton},
@@ -23,23 +26,23 @@ export default {
       user: {
         username: "",
         password: "",
+        email: "",
+        role: ""
       }
     }
   },
   methods: {
-    async login() {
-      const response = axios.post('auth/login', this.user)
-      console.log(response)
-      localStorage.setItem('token', (await response).data.access_token)
-      await store.dispatch('user', (await response).data.access_token)
-      await router.push('/')
+    async signUp() {
+      const response = await axios.post('auth/register', this.user)
+      console.log(response);
+      await router.push('/login')
     },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.login{
+.signUp{
   margin-top: 20px;
 }
 .input {

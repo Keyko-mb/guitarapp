@@ -9,6 +9,7 @@ import AdminPage from "@/pages/AdminPage.vue";
 import AuthorPage from "@/pages/AuthorPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
+import SignUpPage from "@/pages/SignUpPage.vue";
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
         props: (router) => ({id: router.params.id})
     },
     {
+        path: "/search/:searchedLine",
+        component: SearchPage,
+        props: (router) => ({searchedLine: router.params.searchedLine})
+    },
+    {
         path: '/admin',
         component: AdminPage
     },
@@ -50,15 +56,14 @@ const routes = [
         component: LoginPage
     },
     {
-        path: "/search/:searchedLine",
-        component: SearchPage,
-        props: (router) => ({searchedLine: router.params.searchedLine})
+        path: '/singUp',
+        component: SignUpPage
     },
 ]
 
 const router = createRouter({
     routes,
-    history: createWebHistory(process.env.BASE_URL)
+    history: createWebHistory(process.env.BASE_URL),
 })
 
 export default router;

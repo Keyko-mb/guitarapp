@@ -4,7 +4,7 @@
       <h1>Личный кабинет</h1>
       <my-button @click="$router.push('/admin')">Панель администратора</my-button>
     </div>
-    <h3>Логин</h3>
+    <h3>Имя пользователя</h3>
     <div class="favourites">
       <div class="favourites__header">
         <h4>Избранное</h4>
@@ -12,15 +12,29 @@
       </div>
       <p>список песен</p>
     </div>
+    <button @click="logOut" >Выйти</button>
   </div>
 </template>
 
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
+import router from "@/router/router";
+import store from "@/store";
 
 export default {
-  components: {MyButton}
-
+  components: {MyButton},
+  data() {
+    return {
+      user: null
+    }
+  },
+  methods: {
+    logOut() {
+      localStorage.removeItem('token');
+      store.dispatch('user', null)
+      router.push('/')
+    }
+  },
 }
 </script>
 

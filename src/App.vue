@@ -12,8 +12,11 @@ import MyNavbar from "@/components/UI/MyNavbar.vue";
 export default {
   components: {
     MyNavbar
-  }
-
+  },
+  // async created() {
+  //   const response = await axios.get('user');
+  //   store.dispatch('user', response.data);
+  // }
 }
 </script>
 
