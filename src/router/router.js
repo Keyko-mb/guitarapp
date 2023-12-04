@@ -36,14 +36,14 @@ const routes = [
         component: AccountPage
     },
     {
-        path: "/song/:id",
+        path: "/song/:uuid",
         component: SongPage,
-        props: (router) => ({id: router.params.id})
+        props: (router) => ({uuid: router.params.uuid})
     },
     {
-        path: "/author/:id",
+        path: "/author/:uuid",
         component: AuthorPage,
-        props: (router) => ({id: router.params.id})
+        props: (router) => ({uuid: router.params.uuid})
     },
     {
         path: "/search/:searchedLine",
@@ -86,6 +86,7 @@ router.beforeEach((to, from, next) => {
     const publicPages = ['/login', '/register', '/'];
     const authRequired = !publicPages.includes(to.path);
     const initialState = $store.state;
+    console.log(initialState)
 
     if (authRequired && !initialState.status.loggedIn) {
         next('/login');

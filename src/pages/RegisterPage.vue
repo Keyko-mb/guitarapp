@@ -1,15 +1,13 @@
 <template>
   <div class="register">
     <form @submit.prevent>
-      <p>Логин</p>
-      <input v-model="user.username" class="input" type="text" placeholder="username">
-      <p>Пароль</p>
-      <input v-model="user.password" class="input" type="password" placeholder="password">
-      <p>Почта</p>
-      <input v-model="user.email" class="input" type="email" placeholder="email">
-      <p>Роль (ROLE_USER)</p>
-      <input v-model="user.role" class="input" type="text" placeholder="role">
-      <my-button @click="register">Зарегистрироваться</my-button>
+      <h1>Регистрация</h1>
+      <input v-model="user.username" class="input" type="text" placeholder="Имя пользователя">
+      <br>
+      <input v-model="user.password" class="input" type="password" placeholder="Пароль">
+      <br>
+      <input v-model="user.email" class="input" type="email" placeholder="Почта">
+      <my-button class="register-btn" @click="register">Зарегистрироваться</my-button>
     </form>
   </div>
 </template>
@@ -26,7 +24,6 @@ export default {
         username: "",
         password: "",
         email: "",
-        role: ""
       }
     }
   },
@@ -55,15 +52,30 @@ export default {
 
 <style lang="scss" scoped>
 .register{
-  margin-top: 20px;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  margin-top:10%;
+}
+.register h1{
+  font-size: 48px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 .input {
   border-radius: 10px 10px 10px 10px;
   border: 1px solid rgba(0, 0, 0, 0.20);
   background: #FFF;
-  width: 200px;
-  height: 20px;
+  width: 335px;
+  height: 40px;
   padding: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.register-btn {
+  display: flex;
+  gap: 15px;
 }
 </style>

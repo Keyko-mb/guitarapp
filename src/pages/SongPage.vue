@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       song: {
+        uuid: '',
         id: '',
         name: '',
         author: {
@@ -56,7 +57,7 @@ export default {
   },
 
   props: {
-    id: {
+    uuid: {
       type: String,
       required : true
     }
@@ -64,13 +65,13 @@ export default {
 
   mounted() {
     axios
-        .get("http://localhost:8084/api/songId/" + this.id)
+        .get("http://localhost:8084/api/songId/" + this.uuid)
         .then((response) => {
           this.song = response.data
-          console.log(response)
+          console.log(this.song.id)
         })
     axios
-        .get("http://localhost:8084/api/song/" + this.id + "/accords")
+        .get("http://localhost:8084/api/song/" + this.uuid + "/accords")
         .then((response) => {
           this.chords = response.data
           console.log(response)

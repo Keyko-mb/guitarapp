@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       author: {
+        uuid: '',
         id: '',
         name: '',
       },
@@ -26,20 +27,20 @@ export default {
     }
   },
   props: {
-    id: {
+    uuid: {
       type: String,
       required : true
     }
   },
   mounted() {
     axios
-        .get("http://localhost:8084/api/authorById/" + this.id)
+        .get("http://localhost:8084/api/authorId/" + this.uuid)
         .then((response) => {
           this.author = response.data
           console.log(response)
         })
     axios
-        .get("http://localhost:8084/api/authorSongs/" + this.id)
+        .get("http://localhost:8084/api/authorSongs/" + this.uuid)
         .then((response) => {
           this.songs = response.data
           console.log(response)

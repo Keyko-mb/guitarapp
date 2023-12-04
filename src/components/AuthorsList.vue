@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <router-link class="link" :to="'/author/' + author.id" v-for="author in authors" :key="author.id">
+    <router-link class="link" :to="'/author/' + author.uuid" v-for="author in authors" :key="author.id">
       {{author.name}}
     </router-link>
   </div>

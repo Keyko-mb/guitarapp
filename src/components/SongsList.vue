@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <router-link class="link" :to="'/song/' + song.id" v-for="song in songs" :key="song.id">
+    <router-link class="link" :to="'/song/' + song.uuid" v-for="song in songs" :key="song.id">
       {{song.name}} - {{song.author.name}}
     </router-link>
   </div>
