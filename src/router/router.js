@@ -9,7 +9,10 @@ import AdminPage from "@/pages/AdminPage.vue";
 import AuthorPage from "@/pages/AuthorPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import SearchPage from "@/pages/SearchPage.vue";
-import SignUpPage from "@/pages/SignUpPage.vue";
+import SignUpPage from "@/pages/RegisterPage.vue";
+import {auth as $store} from "@/store/auth.module";
+import AccessDenied from "@/pages/AccessDenied.vue";
+import NotFound from "@/pages/NotFound.vue";
 
 const routes = [
     {
@@ -49,15 +52,28 @@ const routes = [
     },
     {
         path: '/admin',
-        component: AdminPage
+        component: AdminPage,
+        meta: { role: 'ROLE_ADMIN' }
     },
     {
         path: '/login',
         component: LoginPage
     },
     {
-        path: '/singUp',
-        component: SignUpPage
+        path: '/register',
+        component: SignUpPage,
+    },
+    {
+        path: '/access-denied',
+        component: AccessDenied
+    },
+    {
+        path: '/404',
+        component: NotFound
+    },
+    {
+        path: "/:catchAll(.*)",
+        redirect: '/404'
     },
 ]
 
@@ -65,5 +81,29 @@ const router = createRouter({
     routes,
     history: createWebHistory(process.env.BASE_URL),
 })
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ['/login', '/register', '/'];
+    const authRequired = !publicPages.includes(to.path);
+    const initialState = $store.state;
+
+    if (authRequired && !initialState.status.loggedIn) {
+        next('/login');
+    } else {
+        if (to.path === '/admin') {
+            const requiredRole = to.meta.role;
+            const userRole = initialState.user.person.role
+            if (requiredRole === userRole){
+                next();
+            }
+            else {
+                next('/access-denied');
+            }
+        }
+        else {
+            next();
+        }
+    }
+});
 
 export default router;

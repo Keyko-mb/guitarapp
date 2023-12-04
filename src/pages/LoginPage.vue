@@ -5,16 +5,15 @@
       <input v-model="user.username" class="input" type="text" placeholder="email">
       <p>Пароль</p>
       <input v-model="user.password" class="input" type="password" placeholder="password">
-      <my-button @click="login">Войти</my-button>
+      <my-button class="enter-btn" @click="login">Войти</my-button>
+      <router-link to="/register">Зарегистрироваться</router-link>
     </form>
   </div>
 </template>
 
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
-import axios from "axios";
 import router from "@/router/router";
-import store from "@/store";
 
 export default {
   components: {MyButton},
@@ -26,14 +25,24 @@ export default {
       }
     }
   },
-  methods: {
-    async login() {
-      const response = axios.post('auth/login', this.user)
-      console.log(response)
-      localStorage.setItem('token', (await response).data.access_token)
-      await store.dispatch('user', (await response).data.access_token)
-      await router.push('/')
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
     },
+  },
+  created() {
+    if (this.loggedIn) {
+      router.push('/');
+    }
+  },
+  methods: {
+    login() {
+      this.$store.dispatch('auth/login', this.user).then(
+          () => {
+            router.go(-1);
+          }
+      )
+    }
   }
 }
 </script>
@@ -49,6 +58,9 @@ export default {
   width: 200px;
   height: 20px;
   padding: 5px;
+  margin-bottom: 5px;
+}
+.enter-btn {
   margin-bottom: 5px;
 }
 </style>

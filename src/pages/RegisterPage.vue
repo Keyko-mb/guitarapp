@@ -1,5 +1,5 @@
 <template>
-  <div class="signUp">
+  <div class="register">
     <form @submit.prevent>
       <p>Логин</p>
       <input v-model="user.username" class="input" type="text" placeholder="username">
@@ -9,14 +9,13 @@
       <input v-model="user.email" class="input" type="email" placeholder="email">
       <p>Роль (ROLE_USER)</p>
       <input v-model="user.role" class="input" type="text" placeholder="role">
-      <my-button @click="signUp">Зарегистрироваться</my-button>
+      <my-button @click="register">Зарегистрироваться</my-button>
     </form>
   </div>
 </template>
 
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
-import axios from "axios";
 import router from "@/router/router";
 
 export default {
@@ -31,18 +30,31 @@ export default {
       }
     }
   },
-  methods: {
-    async signUp() {
-      const response = await axios.post('auth/register', this.user)
-      console.log(response);
-      await router.push('/login')
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
     },
+  },
+  mounted() {
+    if (this.loggedIn) {
+      router.push("/");
+    }
+  },
+  methods: {
+    register() {
+      console.log("page" + this.user)
+      this.$store.dispatch('auth/register', this.user).then(
+          () => {
+            router.push('/login');
+          }
+      )
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.signUp{
+.register{
   margin-top: 20px;
 }
 .input {
