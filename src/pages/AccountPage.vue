@@ -28,6 +28,7 @@ export default {
     return {
       user: {
         person: {
+          uuid: "",
           email: "",
           role: "",
           username: ""
@@ -50,7 +51,7 @@ export default {
     else {
       this.user = this.currentUser;
       axios
-          .get('http://localhost:8084/api/personFavorites/' + this.user.access_token)
+          .get('http://localhost:8084/api/personFavorites/' + this.currentUser.access_token)
           .then((response) => {
             this.favourites = response.data;
           })

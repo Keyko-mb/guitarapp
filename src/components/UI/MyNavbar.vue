@@ -7,8 +7,8 @@
       <button @click="$router.push('/chords')">Аккорды</button>
     </div>
     <input v-model="searchedLine" @keyup.enter="$router.push('/search/' + searchedLine)" placeholder="Поиск"/>
-    <button v-if="currentUser.loggedIn" class="navbar_account" @click="$router.push('/account')">Личный кабинет</button>
-    <button v-if="!currentUser.loggedIn" class="navbar_account" @click="$router.push('/login')">Войти</button>
+    <button v-if="currentUser.status.loggedIn" class="navbar_account" @click="$router.push('/account')">Личный кабинет</button>
+    <button v-else class="navbar_account" @click="$router.push('/login')">Войти</button>
   </div>
 </template>
 

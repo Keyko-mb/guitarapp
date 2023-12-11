@@ -66,7 +66,7 @@ export default {
   border-radius: 10px 10px 10px 10px;
   border: 1px solid rgba(0, 0, 0, 0.20);
   background: #FFF;
-  width: 335px;
+  width: 330px;
   height: 40px;
   padding: 5px;
   margin-bottom: 10px;
@@ -74,6 +74,6 @@ export default {
 }
 .login-btns {
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
 </style>

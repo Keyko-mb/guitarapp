@@ -83,27 +83,38 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/register', '/'];
-    const authRequired = !publicPages.includes(to.path);
+    const privatePages = ['/account', '/admin'];
+    const authRequired = privatePages.includes(to.path);
     const initialState = $store.state;
-    console.log(initialState)
+    // console.log(initialState.status.loggedIn ? initialState.user.access_token : "null")
 
-    if (authRequired && !initialState.status.loggedIn) {
-        next('/login');
-    } else {
-        if (to.path === '/admin') {
-            const requiredRole = to.meta.role;
-            const userRole = initialState.user.person.role
-            if (requiredRole === userRole){
-                next();
-            }
-            else {
-                next('/access-denied');
-            }
+    if (authRequired) {
+        if (!initialState.status.loggedIn) {
+            next('/login');
         }
         else {
-            next();
+            if (to.path === '/admin') {
+                if (!initialState.status.loggedIn) {
+                    next('/login');
+                }
+                else {
+                    const requiredRole = to.meta.role;
+                    const userRole = initialState.user.person.role
+                    if (requiredRole === userRole){
+                        next();
+                    }
+                    else {
+                        next('/access-denied');
+                    }
+                }
+            }
+            else {
+                next();
+            }
         }
+    }
+    else {
+        next();
     }
 });
 

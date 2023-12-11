@@ -7,17 +7,15 @@
       <input v-model="user.password" class="input" type="password" placeholder="Пароль">
       <br>
       <input v-model="user.email" class="input" type="email" placeholder="Почта">
-      <my-button class="register-btn" @click="register">Зарегистрироваться</my-button>
+      <button class="register-btn" @click="register">Зарегистрироваться</button>
     </form>
   </div>
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton.vue";
 import router from "@/router/router";
 
 export default {
-  components: {MyButton},
   data() {
     return {
       user: {
@@ -51,14 +49,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.register{
+.register {
   display: flex;
   height: 100%;
   width: 100%;
   justify-content: center;
   margin-top:10%;
 }
-.register h1{
+.register h1 {
   font-size: 48px;
   font-weight: 500;
   margin-top: 10px;
@@ -76,6 +74,13 @@ export default {
 }
 .register-btn {
   display: flex;
-  gap: 15px;
+  border-radius: 10px 10px 10px 10px;
+  border: 1px solid rgba(136, 90, 53, 0.40);
+  background: rgba(136, 90, 53, 0.15);
+  padding: 10px 25px 10px 25px;
+  width: 345px;
+  font-size: 18px;
+  font-weight: 400;
+  justify-content: center;
 }
 </style>

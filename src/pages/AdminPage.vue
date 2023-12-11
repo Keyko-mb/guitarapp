@@ -126,9 +126,9 @@ export default {
             console.log(response)
           })
     },
-    addSong(song) {
+    addSong(song, author, accords) {
       axios
-          .post('http://localhost:8084/api/song', song)
+          .post('http://localhost:8084/api/song', song, author, accords)
           .then((response) => {
             console.log(response)
             this.songs.push(response.data)

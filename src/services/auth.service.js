@@ -8,7 +8,8 @@ class AuthService {
                 if (response.data.access_token) {
                     console.log(response)
                     localStorage.setItem('user', JSON.stringify(response.data));
-                    console.log(localStorage.getItem('user'))
+                    console.log(response.data.access_token)
+                    axios.defaults.headers.authorization = `Bearer ` + response.data.access_token;
                 }
                 return response.data;
             })
