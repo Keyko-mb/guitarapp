@@ -3,7 +3,7 @@
     <form @submit.prevent>
       <h3>Добавление автора</h3>
       <p>Имя</p>
-      <input v-model="author.name" class="input" type="text" placeholder="name">
+      <input v-model="author.name" class="input" type="text">
       <my-button @click="addAuthor">Добавить</my-button>
     </form>
   </div>
@@ -17,7 +17,6 @@ export default {
   data() {
     return {
       author: {
-        id: "",
         name: ""
       }
     }
@@ -36,27 +35,23 @@ form {
   flex-direction: column;
 }
 h3 {
-  margin-bottom: 5px;
   font-size: 30px;
   font-weight: 400;
 }
 p {
   font-size: 20px;
   font-weight: 400;
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 .input {
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 6px 6px 6px 6px;
   border: 1px solid rgba(0, 0, 0, 0.20);
   background: #FFF;
   width: 500px;
-  height: 40px;
+  height: 25px;
+  font-size: 18px;
   padding: 5px;
-  margin-bottom: 5px;
-}
-.input#text {
-  height: 250px;
   margin-bottom: 10px;
 }
-
 </style>

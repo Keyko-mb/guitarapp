@@ -3,8 +3,8 @@
     <p>
       {{author.name}}
     </p>
-    <button class="item__btn" @click="$emit('editClick')" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
-    <button class="item__btn" @click="$emit('remove', this.author)"><img src="/remove.png" alt="icon" class="remove_icon"></button>
+    <button class="item__btn" @click="$emit('editClick', this.author)" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
+    <button class="item__btn" @click="$emit('remove', this.author.id)"><img src="/remove.png" alt="icon" class="remove_icon"></button>
   </div>
 </template>
 

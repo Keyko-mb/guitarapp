@@ -1,10 +1,10 @@
 <template>
   <div>
     <form @submit.prevent>
-      <h3>Добавление аккорда</h3>
-      <p>Название</p>
-      <input v-model="chord.name" class="input" type="text" placeholder="name">
-      <my-button @click="addChord">Добавить</my-button>
+      <h3>Добавление аккордов и боя</h3>
+      <p>Файл</p>
+      <input type="file" ref="files" multiple @change="handleFileUpload()"/>
+      <my-button @click="addChords">Добавить</my-button>
     </form>
   </div>
 </template>
@@ -16,17 +16,18 @@ export default {
   components: {MyButton},
   data() {
     return {
-      chord: {
-        id: "",
-        name: "",
-        img: ""
+      chords: {
+        files: ""
       }
     }
   },
   methods: {
-    addChord() {
-      this.$emit('add', this.chord)
+    addChords() {
+      this.$emit('add', this.chords)
     },
+    handleFileUpload(){
+      this.chords.files = this.$refs.files.files;
+    }
   }
 }
 </script>
@@ -37,27 +38,27 @@ form {
   flex-direction: column;
 }
 h3 {
-  margin-bottom: 5px;
   font-size: 30px;
   font-weight: 400;
 }
 p {
   font-size: 20px;
   font-weight: 400;
+  margin-top: 10px;
   margin-bottom: 5px;
 }
-.input {
-  border-radius: 10px 10px 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.20);
-  background: #FFF;
-  width: 500px;
-  height: 40px;
-  padding: 5px;
-  margin-bottom: 5px;
-}
-.input#text {
-  height: 250px;
+input {
   margin-bottom: 10px;
 }
-
+input[type=file]::file-selector-button {
+  border: 1px solid rgba(0, 0, 0, 0.20);
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+  font-size: 14px;
+}
+input[type=file]::file-selector-button:hover {
+  background: #e0e0e0;
+}
 </style>

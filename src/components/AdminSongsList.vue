@@ -17,11 +17,11 @@ export default {
     }
   },
   methods: {
-    removeSong(song) {
-      this.$emit('remove', song)
+    removeSong(songId) {
+      this.$emit('remove', songId)
     },
-    editClick() {
-      this.$emit('editClick')
+    editClick(song) {
+      this.$emit('editClick', song)
     }
   }
 }

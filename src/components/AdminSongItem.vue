@@ -3,8 +3,8 @@
     <p>
       {{song.name}} - {{song.author.name}}
     </p>
-    <button class="item__btn" @click="$emit('editClick')" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
-    <button class="item__btn" @click="$emit('remove', this.song)"><img src="/remove.png" alt="icon" class="remove_icon"></button>
+    <button class="item__btn" @click="$emit('editClick', this.song)" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
+    <button class="item__btn" @click="$emit('remove', this.song.id)"><img src="/remove.png" alt="icon" class="remove_icon"></button>
   </div>
 </template>
 

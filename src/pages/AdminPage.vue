@@ -4,7 +4,7 @@
 
     <div class="songs_edit">
       <my-dialog v-model:show="editSongDialogVisible">
-        <admin-edit-song-form @edit="editSong"></admin-edit-song-form>
+        <admin-edit-song-form @edit="editSong" :songToEdit="this.songToEdit"></admin-edit-song-form>
       </my-dialog>
       <my-dialog v-model:show="addSongDialogVisible">
         <admin-add-song-form @add="addSong"></admin-add-song-form>
@@ -22,7 +22,7 @@
 
     <div class="authors_edit">
       <my-dialog v-model:show="editAuthorDialogVisible">
-        <admin-edit-author-form @edit="editAuthor"></admin-edit-author-form>
+        <admin-edit-author-form @edit="editAuthor" :authorToEdit="this.authorToEdit"></admin-edit-author-form>
       </my-dialog>
       <my-dialog v-model:show="addAuthorDialogVisible">
         <admin-add-author-form @add="addAuthor"></admin-add-author-form>
@@ -40,10 +40,10 @@
 
     <div class="chords_edit">
       <my-dialog v-model:show="editChordDialogVisible">
-        <admin-edit-chord-form @edit="editChord"></admin-edit-chord-form>
+        <admin-edit-chord-form :chordToEdit="this.selectedChord" @edit="editChord"></admin-edit-chord-form>
       </my-dialog>
       <my-dialog v-model:show="addChordDialogVisible">
-        <admin-add-chord-form @add="addChord"></admin-add-chord-form>
+        <admin-add-chord-form @add="addChords"></admin-add-chord-form>
       </my-dialog>
       <div class="edit_header">
         <h4>Аккорды и бой</h4>
@@ -52,7 +52,7 @@
       <div class="chords_edit_menu">
         <select class="chords_edit_menu__select" v-model="selectedChord">
           <option disabled value="">Выберите</option>
-          <option v-for="chord in sortedChords" :key="chord.id">{{chord.name}}</option>
+          <option v-for="chord in sortedChords" :value="chord" :key="chord.id">{{chord.name}}</option>
         </select>
         <div class="chords_edit_menu__btn">
           <button @click="showChordEditDialog" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
@@ -98,7 +98,9 @@ export default {
       editAuthorDialogVisible : false,
       addChordDialogVisible : false,
       editChordDialogVisible : false,
-      selectedChord: ''
+      selectedChord: {},
+      songToEdit: {},
+      authorToEdit: {}
     }
   },
   mounted() {
@@ -123,28 +125,29 @@ export default {
           .get('http://localhost:8084/api/songs')
           .then((response) => {
             this.songs = response.data
-            console.log(response)
           })
     },
-    addSong(song, author, accords) {
+    addSong(song) {
       axios
-          .post('http://localhost:8084/api/song', song, author, accords)
+          .post('http://localhost:8084/api/song', song)
           .then((response) => {
-            console.log(response)
             this.songs.push(response.data)
           })
       this.addSongDialogVisible = false;
     },
-    removeSong(song) {
+    removeSong(id) {
       axios
-          .delete("http://localhost:8084/api/song/" + song.id)
-      this.songs = this.songs.filter(p => p.id !== song.id)
+          .delete("http://localhost:8084/api/song/" + id)
+      this.songs = this.songs.filter(p => p.id !== id)
     },
-    editSong(song) {
+    editSong(id, song) {
       axios
-          .patch("http://localhost:8084/api/song/" + song.id, song)
-      this.songs = this.songs.filter(p => p.id !== song.id)
-      this.songs.push(song)
+          .patch("http://localhost:8084/api/song/" + id, song)
+          .then((response) => {
+            this.songs = this.songs.filter(p => p.id !== id)
+            this.songs.push(response.data)
+          })
+      this.editSongDialogVisible = false;
     },
 
     loadAuthors() {
@@ -152,28 +155,29 @@ export default {
           .get('http://localhost:8084/api/authors')
           .then((response) => {
             this.authors = response.data
-            console.log(response)
           })
     },
     addAuthor(author) {
       axios
           .post('http://localhost:8084/api/author', author)
           .then((response) => {
-            console.log(response)
             this.authors.push(response.data)
           })
       this.addAuthorDialogVisible = false;
     },
-    removeAuthor(author) {
+    removeAuthor(id) {
       axios
-          .delete("http://localhost:8084/api/author/" + author.id)
-      this.authors = this.authors.filter(p => p.id !== author.id)
+          .delete("http://localhost:8084/api/author/" + id)
+      this.authors = this.authors.filter(p => p.id !== id)
     },
-    editAuthor(author) {
+    editAuthor(id, author) {
       axios
-          .patch("http://localhost:8084/api/author/" + author.id, author)
-      this.authors = this.authors.filter(p => p.id !== author.id)
-      this.authors.push(author)
+          .patch("http://localhost:8084/api/author/" + id, author)
+          .then((response) => {
+            this.authors = this.authors.filter(p => p.id !== id)
+            this.authors.push(response.data)
+          })
+      this.editAuthorDialogVisible = false;
     },
 
     loadChords() {
@@ -184,36 +188,61 @@ export default {
             console.log(response)
           })
     },
-    addChord() {
+    addChords(chords) {
+      let formData = new FormData();
+      for (let i = 0; i < chords.files.length; i++) {
+        formData.append('images', chords.files[i]);
+      }
       axios
-          .post('http://localhost:8084/api/chord' + "не готово")
+          .post('http://localhost:8084/api/accords', formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              })
           .then((response) => {
-            console.log(response)
-            this.chords.push(response.data)
+            for (let i = 0; i < response.data.length; i++) {
+              this.chords.push(response.data[i]);
+            }
+            console.log(this.chords)
           })
       this.addChordDialogVisible = false;
     },
     removeChord() {
       axios
-          .delete("http://localhost:8084/api/chord/" + "не готово")
+          .delete("http://localhost:8084/api/accord/" + "не готово")
       // this.chords = this.chords.filter(p => p.id !== this.selectedChord.id)
     },
-    editChord() {
+    editChord(id, chord) {
+      let formData = new FormData();
+      formData.append('image', chord.image);
+      formData.append('name', chord.name);
       axios
-          .patch("http://localhost:8084/api/chord/" + "не готово" )
-      // this.chords = this.chords.filter(p => p.id !== this.selectedChord.id)
-      // this.chords.push(this.selectedChord)
+          .patch("http://localhost:8084/api/accord/" + id, formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              })
+          .then((response) => {
+            this.chords = this.chords.filter(p => p.id !== id)
+            this.chords.push(response.data)
+          })
+      this.editChordDialogVisible = false;
     },
     showSongAddDialog() {
       this.addSongDialogVisible = true;
     },
-    showSongEditDialog() {
+    showSongEditDialog(song) {
+      this.songToEdit = song;
       this.editSongDialogVisible = true;
     },
     showAuthorAddDialog() {
       this.addAuthorDialogVisible = true;
     },
-    showAuthorEditDialog() {
+    showAuthorEditDialog(author) {
+      console.log(author)
+      this.authorToEdit = author;
       this.editAuthorDialogVisible = true;
     },
     showChordAddDialog() {

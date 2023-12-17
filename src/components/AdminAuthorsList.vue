@@ -17,11 +17,11 @@ export default {
     }
   },
   methods: {
-    removeAuthor(author) {
-      this.$emit('remove', author)
+    removeAuthor(authorId) {
+      this.$emit('remove', authorId)
     },
-    editClick() {
-      this.$emit('editClick')
+    editClick(author) {
+      this.$emit('editClick', author)
     }
   }
 }
