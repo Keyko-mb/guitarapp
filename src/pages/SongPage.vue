@@ -4,7 +4,8 @@
       <div class="names">
         <div class="header">
           <h1>{{song.name}}</h1>
-          <button class="btn_favourite" @click="addToFavourite"><img src="/like.png" alt="icon" class="btn_favourite_icon"></button>
+          <button v-if="currentUser.status.loggedIn && !isFavourite" class="btn_favourite" @click="addToFavourite"><img src="/like.png" alt="icon" class="btn_favourite_icon"></button>
+          <button v-if="currentUser.status.loggedIn && isFavourite" class="btn_favourite" @click="deleteFromFavourite"><img src="/liked.png" alt="icon" class="btn_favourite_icon"></button>
         </div>
         <h4>{{song.author.name}}</h4>
       </div>
@@ -37,6 +38,7 @@
 <script>
 import axios from "axios";
 import MyChords from "@/components/ChordsList.vue";
+import {auth as $store} from "@/store/auth.module";
 
 export default {
   components: {MyChords},
@@ -56,6 +58,7 @@ export default {
       fontSize: 1.25,
       interval: null,
       scrollSpeed: 301,
+      isFavourite: false
     }
   },
 
@@ -65,13 +68,23 @@ export default {
       required : true
     }
   },
-
+  computed: {
+    currentUser() {
+      return this.$store.state.auth;
+    },
+  },
   mounted() {
     axios
         .get("http://localhost:8084/api/songId/" + this.uuid)
         .then((response) => {
           this.song = response.data
-          console.log(this.song.id)
+          axios
+              .get('http://localhost:8084/api/personFavorite/' + this.currentUser.user.person.uuid + "/" + this.song.id)
+              .then((response) => {
+                if (response.data) {
+                  this.isFavourite = true;
+                }
+              })
         })
     axios
         .get("http://localhost:8084/api/song/" + this.uuid + "/accords")
@@ -97,13 +110,22 @@ export default {
       this.scrollSpeed=301
       clearInterval(this.interval);
     },
-    // addToFavourite() {
-    //   axios
-    //       .post("http://localhost:8084/api/personFavorites/" + {token} + "/" + {id})
-    //       .then((response) => {
-    //         console.log(response)
-    //       })
-    // }
+    addToFavourite() {
+      let token = $store.state.token
+      axios
+          .post("http://localhost:8084/api/personFavorites/" + token + "/" + this.song.id)
+          .then((response) => {
+            console.log(response)
+          })
+    },
+    deleteFromFavourite() {
+      let token = $store.state.token
+      axios
+          .delete("http://localhost:8084/api/personFavorites/" + token + "/" + this.song.id)
+          .then((response) => {
+            console.log(response)
+          })
+    },
   }
 }
 </script>
