@@ -35,7 +35,6 @@ p {
   display: flex;
   justify-content: space-between;
   width: 45%;
-  margin-bottom: 10px;
   flex-grow: 3;
 }
 .item__btn {

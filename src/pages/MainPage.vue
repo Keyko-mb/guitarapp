@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1>Какая-нибудь цитата</h1>
+    <h1>Ваши любимые песни с правильными аккордами</h1>
     <h4>Сборник аккордов песен, аппликатур и тд.</h4>
     <h3>Поиск среди песен</h3>
     <div class="main_search">
@@ -31,7 +31,7 @@ export default {
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 500;
   margin: 0;
 }

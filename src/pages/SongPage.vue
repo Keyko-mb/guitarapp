@@ -61,7 +61,6 @@ export default {
       isFavourite: false
     }
   },
-
   props: {
     uuid: {
       type: String,
@@ -70,7 +69,7 @@ export default {
   },
   computed: {
     currentUser() {
-      return this.$store.state.auth;
+      return $store.state;
     },
   },
   mounted() {
@@ -93,7 +92,6 @@ export default {
           console.log(response)
         })
   },
-
   methods: {
     scrollDown(delta) {
       this.scrollSpeed += delta
@@ -111,20 +109,14 @@ export default {
       clearInterval(this.interval);
     },
     addToFavourite() {
-      let token = $store.state.token
       axios
-          .post("http://localhost:8084/api/personFavorites/" + token + "/" + this.song.id)
-          .then((response) => {
-            console.log(response)
-          })
+          .post("http://localhost:8084/api/personFavorites/" + this.currentUser.token + "/" + this.song.id)
+      this.isFavourite = true
     },
     deleteFromFavourite() {
-      let token = $store.state.token
       axios
-          .delete("http://localhost:8084/api/personFavorites/" + token + "/" + this.song.id)
-          .then((response) => {
-            console.log(response)
-          })
+          .delete("http://localhost:8084/api/personFavorites/" + this.currentUser.token + "/" + this.song.id)
+      this.isFavourite = false
     },
   }
 }

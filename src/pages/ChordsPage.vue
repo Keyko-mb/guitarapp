@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Аккорды</h1>
+    <h1>Аккорды и бой</h1>
     <my-chords class="chords" :chords="chords"></my-chords>
     <div class="page_wrapper">
       <div class="page" v-for="pageNumber in totalPages"
