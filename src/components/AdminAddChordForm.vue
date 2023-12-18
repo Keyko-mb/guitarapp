@@ -21,6 +21,7 @@ export default {
       }
     }
   },
+  emits: ['add'],
   methods: {
     addChords() {
       this.$emit('add', this.chords)

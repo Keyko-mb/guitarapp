@@ -9,7 +9,7 @@ class AuthService {
                     console.log(response)
                     localStorage.setItem('user', JSON.stringify(response.data));
                     console.log(response.data.access_token)
-                    axios.defaults.headers.authorization = `Bearer ` + response.data.access_token;
+                    axios.defaults.headers.common['Authorization'] = `Bearer ` + response.data.access_token
                 }
                 return response.data;
             })

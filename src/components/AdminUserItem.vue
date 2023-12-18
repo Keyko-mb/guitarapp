@@ -1,10 +1,10 @@
 <template>
   <div class="item">
     <p>
-      {{author.name}}
+      {{user.username}} ({{user.email}})
     </p>
-    <button class="item__btn" @click="$emit('editClick', this.author)" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
-    <button class="item__btn" @click="$emit('remove', this.author.id)"><img src="/remove.png" alt="icon" class="remove_icon"></button>
+    <button class="item__btn" @click="$emit('editClick', this.user)" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
+    <button class="item__btn" @click="$emit('remove', this.user.id)"><img src="/remove.png" alt="icon" class="remove_icon"></button>
   </div>
 </template>
 
@@ -12,9 +12,11 @@
 
 export default {
   props: {
-    author: {
+    user: {
       id: "",
-      name :"",
+      username : "",
+      email: "",
+      role: ""
     }
   },
   emits: ['editClick', 'remove'],

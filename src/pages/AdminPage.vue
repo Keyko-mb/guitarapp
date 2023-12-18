@@ -60,6 +60,20 @@
         </div>
       </div>
     </div>
+
+    <div class="users_edit">
+      <my-dialog v-model:show="editUserDialogVisible">
+        <admin-edit-user-form @edit="editUser" :userToEdit="this.userToEdit"></admin-edit-user-form>
+      </my-dialog>
+      <div class="edit_header">
+        <h4>Пользователи</h4>
+      </div>
+      <admin-users-list
+          :users="sortedUsers"
+          @remove="removeUser"
+          @editClick="showUserEditDialog"
+      ></admin-users-list>
+    </div>
   </div>
 </template>
 
@@ -74,9 +88,13 @@ import AdminEditAuthorForm from "@/components/AdminEditAuthorForm.vue";
 import AdminAddAuthorForm from "@/components/AdminAddAuthorForm.vue";
 import AdminEditChordForm from "@/components/AdminEditChordForm.vue";
 import AdminAddChordForm from "@/components/AdminAddChordForm.vue";
+import AdminUsersList from "@/components/AdminUsersList.vue";
+import AdminEditUserForm from "@/components/AdminEditUserForm.vue";
 
 export default {
   components: {
+    AdminEditUserForm,
+    AdminUsersList,
     AdminAddChordForm,
     AdminEditChordForm,
     AdminAddAuthorForm,
@@ -92,21 +110,25 @@ export default {
       songs: [],
       authors: [],
       chords: [],
+      users: [],
       addSongDialogVisible : false,
       editSongDialogVisible : false,
       addAuthorDialogVisible : false,
       editAuthorDialogVisible : false,
       addChordDialogVisible : false,
       editChordDialogVisible : false,
+      editUserDialogVisible : false,
       selectedChord: {},
       songToEdit: {},
-      authorToEdit: {}
+      authorToEdit: {},
+      userToEdit: {}
     }
   },
   mounted() {
     this.loadSongs();
     this.loadAuthors();
     this.loadChords();
+    this.loadUsers();
   },
   computed: {
     sortedSongs() {
@@ -117,6 +139,9 @@ export default {
     },
     sortedChords() {
       return [...this.chords].sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
+    },
+    sortedUsers() {
+      return [...this.users].sort((a,b) => (a.username.toLowerCase() > b.username.toLowerCase()) ? 1 : -1)
     }
   },
   methods: {
@@ -185,7 +210,6 @@ export default {
           .get('http://localhost:8084/api/accords')
           .then((response) => {
             this.chords = response.data
-            console.log(response)
           })
     },
     addChords(chords) {
@@ -204,14 +228,13 @@ export default {
             for (let i = 0; i < response.data.length; i++) {
               this.chords.push(response.data[i]);
             }
-            console.log(this.chords)
           })
       this.addChordDialogVisible = false;
     },
     removeChord() {
       axios
-          .delete("http://localhost:8084/api/accord/" + "не готово")
-      // this.chords = this.chords.filter(p => p.id !== this.selectedChord.id)
+          .delete("http://localhost:8084/api/accord/" + this.selectedChord.id)
+      this.chords = this.chords.filter(p => p.id !== this.selectedChord.id)
     },
     editChord(id, chord) {
       let formData = new FormData();
@@ -230,6 +253,28 @@ export default {
           })
       this.editChordDialogVisible = false;
     },
+
+    loadUsers() {
+      axios
+          .get('http://localhost:8084/api/person')
+          .then((response) => {
+            this.users = response.data
+          })
+    },
+    removeUser(id) {
+      axios
+          .delete("http://localhost:8084/api/person/" + id)
+      this.users = this.users.filter(p => p.id !== id)
+    },
+    editUser(id, user) {
+      axios
+          .patch("http://localhost:8084/api/person/" + id, user)
+          .then((response) => {
+            this.users = this.users.filter(p => p.id !== id)
+            this.users.push(response.data)
+          })
+      this.editUserDialogVisible = false;
+    },
     showSongAddDialog() {
       this.addSongDialogVisible = true;
     },
@@ -241,7 +286,6 @@ export default {
       this.addAuthorDialogVisible = true;
     },
     showAuthorEditDialog(author) {
-      console.log(author)
       this.authorToEdit = author;
       this.editAuthorDialogVisible = true;
     },
@@ -250,6 +294,10 @@ export default {
     },
     showChordEditDialog() {
       this.editChordDialogVisible = true;
+    },
+    showUserEditDialog(user) {
+      this.userToEdit = user;
+      this.editUserDialogVisible = true;
     },
   }
 }
@@ -272,7 +320,7 @@ h4 {
 button {
   border: none;
 }
-.authors_edit, .chords_edit {
+.authors_edit, .chords_edit, .users_edit {
   margin-top: 30px;
 }
 .edit_header{

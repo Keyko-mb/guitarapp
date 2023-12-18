@@ -83,6 +83,7 @@ export default {
       return [...this.chords].sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
     },
   },
+  emits: ['edit'],
   methods: {
     editSong() {
       this.$emit('edit', this.songToEdit.id, this.song)

@@ -16,6 +16,7 @@ export default {
       required : true
     }
   },
+  emits: ['editClick', 'remove'],
   methods: {
     removeAuthor(authorId) {
       this.$emit('remove', authorId)

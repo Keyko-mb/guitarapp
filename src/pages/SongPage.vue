@@ -2,7 +2,10 @@
   <div class="song">
     <div class="first">
       <div class="names">
-        <h1>{{song.name}}</h1>
+        <div class="header">
+          <h1>{{song.name}}</h1>
+          <button class="btn_favourite" @click="addToFavourite"><img src="/like.png" alt="icon" class="btn_favourite_icon"></button>
+        </div>
         <h4>{{song.author.name}}</h4>
       </div>
       <div class="buttons">
@@ -93,7 +96,14 @@ export default {
     scrollStop() {
       this.scrollSpeed=301
       clearInterval(this.interval);
-    }
+    },
+    // addToFavourite() {
+    //   axios
+    //       .post("http://localhost:8084/api/personFavorites/" + {token} + "/" + {id})
+    //       .then((response) => {
+    //         console.log(response)
+    //       })
+    // }
   }
 }
 </script>
@@ -122,6 +132,17 @@ export default {
   letter-spacing: 2.3px;
   margin-top: 20px;
   white-space: pre;
+}
+.header{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.btn_favourite_icon {
+  height: 31px;
+  width: 31px;
+  margin-top: 15px;
+  opacity: 85%;
 }
 .names h1 {
   font-size: 48px;
@@ -161,5 +182,8 @@ export default {
   top: 3em;
   position: sticky;
   margin-top: 30px;
+}
+button {
+  border: none;
 }
 </style>

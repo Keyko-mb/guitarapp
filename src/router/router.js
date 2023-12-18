@@ -86,7 +86,6 @@ router.beforeEach((to, from, next) => {
     const privatePages = ['/account', '/admin'];
     const authRequired = privatePages.includes(to.path);
     const initialState = $store.state;
-    // console.log(initialState.status.loggedIn ? initialState.user.access_token : "null")
 
     if (authRequired) {
         if (!initialState.status.loggedIn) {

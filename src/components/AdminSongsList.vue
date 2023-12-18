@@ -16,6 +16,7 @@ export default {
       required : true
     }
   },
+  emits: ['editClick', 'remove'],
   methods: {
     removeSong(songId) {
       this.$emit('remove', songId)

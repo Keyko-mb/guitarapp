@@ -21,6 +21,7 @@ export default {
       }
     }
   },
+  emits: ['add'],
   methods: {
     addAuthor() {
       this.$emit('add', this.author)
@@ -48,7 +49,7 @@ p {
   border-radius: 6px 6px 6px 6px;
   border: 1px solid rgba(0, 0, 0, 0.20);
   background: #FFF;
-  width: 500px;
+  width: 300px;
   height: 25px;
   font-size: 18px;
   padding: 5px;

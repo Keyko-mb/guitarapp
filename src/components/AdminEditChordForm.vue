@@ -49,6 +49,7 @@ export default {
           })
         })
   },
+  emits: ['edit'],
   methods: {
     editChord() {
       this.$emit('edit', this.chordToEdit.id, this.chord)

@@ -9,10 +9,8 @@
 </template>
 
 <script>
-// import MyButton from "@/components/UI/MyButton.vue";
 
 export default {
-  // components: {MyButton},
   props: {
       song: {
         id: "",
@@ -24,8 +22,7 @@ export default {
         text: ""
     }
   },
-  methods: {
-  }
+  emits: ['editClick', 'remove'],
 }
 </script>
 

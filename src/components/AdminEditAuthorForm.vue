@@ -28,6 +28,7 @@ export default {
       }
     }
   },
+  emits: ['edit'],
   methods: {
     editAuthor() {
       this.$emit('edit', this.authorToEdit.id, this.author)

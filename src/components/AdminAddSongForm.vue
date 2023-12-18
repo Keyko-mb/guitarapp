@@ -6,7 +6,7 @@
       <input v-model="song.name" class="input" type="text">
       <p>Автор</p>
       <select class="select" v-model="song.author" id="select_author">
-        <option value="" selected disabled>Выберите автора</option>
+        <option selected disabled value="">Выберите автора</option>
         <option v-for="author in sortedAuthors" :value="author" :key="author.id">{{author.name}}</option>
       </select>
       <p>Аккорды и бой</p>
@@ -44,6 +44,7 @@ export default {
       chords: [],
     }
   },
+  emits: ['add'],
   mounted() {
     axios
         .get('http://localhost:8084/api/authors')
