@@ -32,7 +32,6 @@ export default {
           role: "",
           username: ""
         },
-        access_token: "",
       },
     }
   },
@@ -85,6 +84,10 @@ export default {
   padding: 10px 25px 10px 25px;
   font-size: 18px;
   font-weight: 400;
+}
+.btns button:hover {
+  cursor: pointer;
+  background: rgba(210, 168, 135, 0.15);
 }
 h4 {
   font-size: 20px;

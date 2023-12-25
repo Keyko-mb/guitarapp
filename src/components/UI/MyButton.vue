@@ -21,4 +21,8 @@ export default {
   font-size: 18px;
   font-weight: 400;
 }
+button:hover {
+  cursor: pointer;
+  background: rgba(210, 168, 135, 0.15);
+}
 </style>

@@ -2,6 +2,13 @@
   <div class="favourites">
     <h4>Избранное</h4>
     <favourite-songs-list @remove="removeSong" :songs="favourites"></favourite-songs-list>
+    <div class="page_wrapper">
+      <div class="page" v-for="pageNumber in totalPages"
+           :key="pageNumber"
+           :class="{'current-page': (page + 1) === pageNumber}"
+           @click="changePage(pageNumber-1)"
+      >{{pageNumber}}</div>
+    </div>
   </div>
 </template>
 
@@ -15,6 +22,9 @@ export default {
   data() {
     return {
       favourites: [],
+      page: 0,
+      limit: 2,
+      totalPages: 0
     }
   },
   computed: {
@@ -28,17 +38,30 @@ export default {
     }
     else {
       this.user = this.currentUser;
-      axios
-          .get('http://localhost:8084/api/personFavorites/' + this.currentUser.access_token)
-          .then((response) => {
-            this.favourites = response.data;
-          })
+      this.loadFavorites();
+    }
+  },
+  watch: {
+    page() {
+      this.loadFavorites();
     }
   },
   methods: {
+    loadFavorites() {
+      axios
+          .get('http://localhost:8084/api/personFavorites/' + this.user.person.uuid + '/' + this.page + '/' + this.limit)
+          .then((response) => {
+            this.favourites = response.data.content
+            this.favourites.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
+            this.totalPages = response.data.totalPages;
+          })
+    },
+    changePage(pageNumber) {
+      this.page = pageNumber;
+    },
     removeSong(id) {
       axios
-          .delete("http://localhost:8084/api/personFavorites/" + this.currentUser.access_token + "/" + id)
+          .delete("http://localhost:8084/api/personFavorites/" + this.user.user.person.uuid + "/" + id)
       this.favourites = this.favourites.filter(p => p.id !== id)
     },
   }
@@ -51,5 +74,20 @@ h4 {
   font-weight: 400;
   color: #885A35;
   margin-bottom: 5px;
+}
+.page_wrapper {
+  display: flex;
+  margin-top: 5px;
+}
+.page {
+  padding: 5px;
+  font-size: 20px;
+
+}
+.current-page {
+  color: #885A35;
+}
+.page:hover {
+  cursor: pointer;
 }
 </style>

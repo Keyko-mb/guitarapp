@@ -23,7 +23,7 @@ export default {
       authors: [],
       page: 0,
       limit: 1,
-      totalPages: 0
+      totalPages: 0,
     }
   },
   mounted() {
@@ -38,10 +38,10 @@ export default {
           .get('http://localhost:8084/api/authors/' + this.page + '/' + this.limit)
           .then((response) => {
             this.authors = response.data.content
-            this.authors.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
+            this.authors.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
             this.totalPages = response.data.totalPages;
           })
-    }
+    },
   },
   watch: {
     page() {
@@ -72,5 +72,12 @@ h1 {
 }
 .page:hover {
   cursor: pointer;
+}
+.loading {
+  margin: 30px 0 0 20px;
+}
+.loading-message {
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 </style>

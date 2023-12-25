@@ -58,7 +58,7 @@ export default {
       fontSize: 1.25,
       interval: null,
       scrollSpeed: 301,
-      isFavourite: false
+      isFavourite: false,
     }
   },
   props: {
@@ -73,26 +73,28 @@ export default {
     },
   },
   mounted() {
-    axios
-        .get("http://localhost:8084/api/songId/" + this.uuid)
-        .then((response) => {
-          this.song = response.data
-          axios
-              .get('http://localhost:8084/api/personFavorite/' + this.currentUser.user.person.uuid + "/" + this.song.id)
-              .then((response) => {
-                if (response.data) {
-                  this.isFavourite = true;
-                }
-              })
-        })
-    axios
-        .get("http://localhost:8084/api/song/" + this.uuid + "/accords")
-        .then((response) => {
-          this.chords = response.data
-          console.log(response)
-        })
+    this.loadSong();
   },
   methods: {
+    loadSong() {
+        axios
+            .get("http://localhost:8084/api/songId/" + this.uuid)
+            .then((response) => {
+              this.song = response.data
+              axios
+                  .get('http://localhost:8084/api/personFavorite/' + this.currentUser.user.person.uuid + "/" + this.song.id)
+                  .then((response) => {
+                    if (response.data) {
+                      this.isFavourite = true;
+                    }
+                  })
+            })
+        axios
+            .get("http://localhost:8084/api/song/" + this.uuid + "/accords")
+            .then((response) => {
+              this.chords = response.data
+            })
+    },
     scrollDown(delta) {
       this.scrollSpeed += delta
       this.scrollSpeed = Math.max(this.scrollSpeed, 1)
@@ -102,7 +104,6 @@ export default {
       this.interval = setInterval(() => {
         window.scrollBy( { top: 1, left: 0, behavior: 'smooth' } );
       }, this.scrollSpeed);
-      console.log(this.scrollSpeed)
     },
     scrollStop() {
       this.scrollSpeed=301
@@ -110,12 +111,12 @@ export default {
     },
     addToFavourite() {
       axios
-          .post("http://localhost:8084/api/personFavorites/" + this.currentUser.token + "/" + this.song.id)
+          .post("http://localhost:8084/api/personFavorites/" + this.currentUser.user.person.uuid + "/" + this.song.id)
       this.isFavourite = true
     },
     deleteFromFavourite() {
       axios
-          .delete("http://localhost:8084/api/personFavorites/" + this.currentUser.token + "/" + this.song.id)
+          .delete("http://localhost:8084/api/personFavorites/" + this.currentUser.user.person.uuid + "/" + this.song.id)
       this.isFavourite = false
     },
   }
@@ -126,8 +127,15 @@ export default {
 <style lang="scss" scoped>
 .song {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 75% 25%;
   padding-bottom: 60px;
+}
+.loading {
+  margin: 30px 0 0 20px;
+}
+.loading-message {
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 .first {
   grid-column-start: 1;
@@ -192,7 +200,7 @@ export default {
   height: 30px;
 }
 .chords {
-  width: 550px;
+  width: 262px;
   top: 3em;
   position: sticky;
   margin-top: 30px;

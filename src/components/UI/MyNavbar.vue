@@ -53,6 +53,11 @@ export default {
   font-size: 20px;
 }
 
+button:hover {
+  cursor: pointer;
+  color: #885A35;
+}
+
 .navbar_account {
   margin-left: 51px;
   border: 0;

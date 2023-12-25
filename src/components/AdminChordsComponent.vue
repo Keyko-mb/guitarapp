@@ -17,7 +17,6 @@
           <option v-for="chord in sortedChords" :value="chord" :key="chord.id">{{chord.name}}</option>
         </select>
         <div class="chords_edit_menu__btn">
-          <button @click="showChordEditDialog" ><img src="/edit.png" alt="icon" class="edit_icon"></button>
           <button @click="removeChord"><img src="/remove.png" alt="icon" class="remove_icon"></button>
         </div>
       </div>
@@ -27,12 +26,11 @@
 
 <script>
 import AdminAddChordForm from "@/components/AdminAddChordForm.vue";
-import AdminEditChordForm from "@/components/AdminEditChordForm.vue";
 import MyDialog from "@/components/UI/MyDialog.vue";
 import axios from "axios";
 
 export default {
-  components: {MyDialog, AdminEditChordForm, AdminAddChordForm},
+  components: {MyDialog, AdminAddChordForm},
   data() {
     return {
       chords: [],

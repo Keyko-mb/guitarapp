@@ -37,6 +37,9 @@ export default {
   computed: {
     sortedUsers() {
       return [...this.users].sort((a,b) => (a.username.toLowerCase() > b.username.toLowerCase()) ? 1 : -1)
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
     }
   },
   methods: {
@@ -45,6 +48,7 @@ export default {
           .get('http://localhost:8084/api/person')
           .then((response) => {
             this.users = response.data
+            this.users = this.users.filter(p => p.id !== this.currentUser.person.id)
           })
     },
     removeUser(id) {

@@ -2,6 +2,7 @@
   <div class="login">
     <form @submit.prevent>
       <h1>Вход</h1>
+      <my-error v-if="error" :error="error"></my-error>
       <input v-model="user.username" class="input" type="text" placeholder="Имя пользователя">
       <br>
       <input v-model="user.password" class="input" type="password" placeholder="Пароль">
@@ -16,15 +17,17 @@
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
 import router from "@/router/router";
+import MyError from "@/components/UI/MyError.vue";
 
 export default {
-  components: {MyButton},
+  components: {MyError, MyButton},
   data() {
     return {
       user: {
         username: "",
         password: "",
-      }
+      },
+      error: ""
     }
   },
   computed: {
@@ -40,10 +43,12 @@ export default {
   methods: {
     login() {
       this.$store.dispatch('auth/login', this.user).then(
-          () => {
-            router.go(-1);
-          }
-      )
+          (response) => {
+            if (response.status !== 200) {
+              this.error = "Неверный логин/пароль!"
+            }
+            else router.go(-1);
+          })
     }
   }
 }
