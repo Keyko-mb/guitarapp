@@ -11,6 +11,7 @@
         <h4>Список исполнителей</h4>
         <button @click="showAuthorAddDialog"><img src="/add.png" alt="icon" class="btn_add_icon"></button>
       </div>
+      <my-error v-if="error" :error="error"></my-error>
       <admin-authors-list
           :authors="sortedAuthors"
           @remove="removeAuthor"
@@ -26,15 +27,17 @@ import AdminEditAuthorForm from "@/components/AdminEditAuthorForm.vue";
 import MyDialog from "@/components/UI/MyDialog.vue";
 import AdminAuthorsList from "@/components/AdminAuthorsList.vue";
 import axios from "axios";
+import MyError from "@/components/UI/MyError.vue";
 
 export default {
-  components: {AdminAuthorsList, MyDialog, AdminEditAuthorForm, AdminAddAuthorForm},
+  components: {MyError, AdminAuthorsList, MyDialog, AdminEditAuthorForm, AdminAddAuthorForm},
   data() {
     return {
       authors: [],
       addAuthorDialogVisible : false,
       editAuthorDialogVisible : false,
       authorToEdit: {},
+      error: ""
     }
   },
   mounted() {
@@ -62,10 +65,10 @@ export default {
       this.addAuthorDialogVisible = false;
     },
     removeAuthor(id) {
-      axios
-          .delete("http://localhost:8084/api/author/" + id)
+        axios
+            .delete("http://localhost:8084/api/author/" + id)
       this.authors = this.authors.filter(p => p.id !== id)
-    },
+      },
     editAuthor(id, author) {
       axios
           .patch("http://localhost:8084/api/author/" + id, author)
@@ -82,7 +85,7 @@ export default {
       this.authorToEdit = author;
       this.editAuthorDialogVisible = true;
     },
-  }
+}
 }
 </script>
 

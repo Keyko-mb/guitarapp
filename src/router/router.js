@@ -13,7 +13,6 @@ import SignUpPage from "@/pages/RegisterPage.vue";
 import {auth as $store} from "@/store/auth.module";
 import AccessDenied from "@/pages/AccessDenied.vue";
 import NotFound from "@/pages/NotFound.vue";
-import ErrorPage from "@/pages/ErrorPage.vue";
 
 const routes = [
     {
@@ -75,10 +74,6 @@ const routes = [
     {
         path: "/:catchAll(.*)",
         redirect: '/404'
-    },
-    {
-        path: "/error",
-        component: ErrorPage
     },
 ]
 

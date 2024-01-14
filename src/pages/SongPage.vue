@@ -81,13 +81,15 @@ export default {
             .get("http://localhost:8084/api/songId/" + this.uuid)
             .then((response) => {
               this.song = response.data
-              axios
-                  .get('http://localhost:8084/api/personFavorite/' + this.currentUser.user.person.uuid + "/" + this.song.id)
-                  .then((response) => {
-                    if (response.data) {
-                      this.isFavourite = true;
-                    }
-                  })
+              if (this.currentUser.user !== null) {
+                axios
+                    .get('http://localhost:8084/api/personFavorite/' + this.currentUser.user.person.uuid + "/" + this.song.id)
+                    .then((response) => {
+                      if (response.data) {
+                        this.isFavourite = true;
+                      }
+                    })
+              }
             })
         axios
             .get("http://localhost:8084/api/song/" + this.uuid + "/accords")

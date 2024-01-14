@@ -53,6 +53,7 @@ export default {
     if (!this.currentUser) {
       router.push('/login');
     } else {
+      console.log(this.currentUser)
       this.user = this.currentUser;
     }
   }

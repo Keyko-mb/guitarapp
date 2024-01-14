@@ -5,7 +5,7 @@ class AuthService {
         return axios
             .post('auth/login', user)
             .then(response => {
-                if (response.data.access_token) {
+                if (response.status===200) {
                     localStorage.setItem('user', JSON.stringify(response.data));
                     axios.defaults.headers.common['Authorization'] = `Bearer ` + response.data.access_token
                 }
@@ -18,6 +18,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem('user');
+        delete axios.defaults.headers.common['Authorization'];
     }
 
     register(user) {
